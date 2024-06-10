@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { Client, IntentsBitField, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ActivityType } = require('discord.js');
+const { Client, IntentsBitField, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 const bot = new Client({
     intents: [
@@ -11,34 +11,12 @@ const bot = new Client({
     ]
 });
 
-let status = [
-    {
-        name: "steve jerking off",
-        type: ActivityType.Streaming,
-        url: 'https://www.youtube.com/watch?v=0YpdS25yV4I',
-    },
-    {
-        name: "steve jerk off",
-        type: ActivityType.Listening,
-    },
-    {
-        name: "steve jerk off",
-        type: ActivityType.Watching,
-    },
-]
-
 bot.on('ready', () => {
     console.log(`${bot.user.tag} is online.`);
-
-    setInterval(() => {
-        let random = Math.floor(Math.random() * status.length);
-        bot.user.setActivity(status[random]);
-    }, 10000);
-
 });
 
 bot.on('messageCreate', (msg) => {
-    if (msg.author.bot) return;
+    if (msg.author.bot ||!msg.content.trim()) return;
 
     if (msg.content.toLowerCase() === 'steve') {
         msg.reply('chigga');
